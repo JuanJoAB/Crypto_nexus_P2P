@@ -1,0 +1,143 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1E1E1E;
+    
+}
+.maincontainer {
+    max-width: 600px;
+    height: 800px;
+    max-height: 1000px;
+    margin: 50px auto;
+    padding: 20px;  
+    border: 1px solid #26A17B;
+    border-radius: 30px;
+    box-shadow: 0 4px 25px #26A17B;
+    background-color: #4D4D4D;
+}
+
+/*estilos de la barra de opciones */
+.menubar {
+    display: flex;
+    justify-content: space-between;
+    background-color: #1E1E1E;
+    align-items: center;
+    color: white;
+    padding: 10px 10px;
+    width: auto;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    box-shadow: 0 0 10px #F4C542;
+    z-index: 1000;
+}
+.menubar .actions {
+    display: flex;
+}
+
+.menubar .actions .action-btn:hover {
+    background-color: #1E1E1E;
+}
+.content {
+    padding: 80px 20px; /* Add padding to avoid overlap with fixed navbar */
+}
+
+/*imagenes del menubar */
+
+.menubar-logo {
+    height: 40px;
+    width: auto;
+    padding: 0px 10px 0px 10px;
+}
+.spacer {
+    height: 40px;
+    width: 250px;
+    padding: 0px 10px 0px 10px;
+}
+/*accioens del menubar */
+.btn-user {
+    height: 40px;
+    width: auto;
+    vertical-align: middle;
+    padding: 0px 10px 0px 10px;
+}
+.btn-configuration {
+    height: 40px;
+    width: auto; 
+}
+
+.btn-support {
+    height: 40px;
+    width: auto;
+}
+
+
+/*estilos del navbar contenedor de pestanas */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1E1E1E;
+    padding: 10px 5px;
+    width: auto;
+    border-radius: 0px 0px 15px 15px;
+    filter: drop-shadow(0 6px 6px #F4C542);
+
+    z-index: 1000;
+}
+.navbar .tabs {
+    display: flex;
+}
+.navbar .tabs .tab {
+    margin-right: 15px;
+    padding: 10px 15px;
+    cursor: pointer;
+    background-color: #1E1E1E;
+    color: #afafaf;
+    border-radius: 20px;
+}
+.navbar .tabs .tab:hover {
+    background-color: #4D4D4D;
+}
+.navbar .tabs .tab.active {
+    background-color: #4D4D4D;
+}
+
+.tabs {
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    justify-content: start; /* centrar horizontalmente */
+    justify-items: right;
+    background-color: #1E1E1E;
+    max-width: 100%;
+    gap: 6px;
+}
+.tab {
+    grid: 1;
+    aspect-ratio: 1 / 1;
+    text-align: center;
+    font-size: 12px;
+    color: white;
+    cursor: pointer;
+    background-color: #1E1E1E;
+}
+.icons {
+    height: 40px;
+    width: auto; /* Mantén la proporción del logotipo */
+    vertical-align: middle;
+
+}
+.tab:hover {
+    background-color: #1E1E1E;
+}
+.tab.active {
+    background-color: #1E1E1E;
+}
+.content {
+    padding: 20px;
+    display: none;
+}
+.content.active {
+    display: block;
+}

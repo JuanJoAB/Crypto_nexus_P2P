@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Colores Ejemplo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .color-box {
+      height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .rojo    { background-color: #0D1B2A; }
+    .verde   { background-color: #00FFFF; }
+    .azul    { background-color: #4B0082; }
+    .amarillo{ background-color: #FF2E63; }
+    .morado  { background-color: #FFFFFF; }
+
+  </style>
+</head>
+<body>
+
+  <h1></h1>
+
+  <div class="color-grid">
+    <div class="color-box rojo"></div>
+    <div class="color-box verde"></div>
+    <div class="color-box azul"></div>
+    <div class="color-box amarillo"></div>
+    <div class="color-box morado"></div>
+  </div>
+
+</body>
+</html>

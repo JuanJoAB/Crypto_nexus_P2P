@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Multilingual Page</title>
+</head>
+<body>
+  <h1 id="title">Hello</h1>
+  <p id="description">Welcome to our website.</p>
+
+  <button onclick="setLanguage('en')">English</button>
+  <button onclick="setLanguage('es')">Español</button>
+
+  <script>
+    const translations = {
+      en: {
+        title: "Hello",
+        description: "Welcome to our website."
+      },
+      es: {
+        title: "Hola",
+        description: "Bienvenido a nuestro sitio web."
+      }
+    };
+
+    function setLanguage(lang) {
+      document.getElementById('title').innerText = translations[lang].title;
+      document.getElementById('description').innerText = translations[lang].description;
+      // Guarda el idioma en localStorage si se desea
+      localStorage.setItem('lang', lang);
+    }
+
+    // Cargar idioma preferido al iniciar
+    const savedLang = localStorage.getItem('lang') || 'en';
+    setLanguage(savedLang);
+  </script>
+</body>
+</html>

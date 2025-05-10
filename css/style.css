@@ -1,0 +1,202 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #4D4D4D;
+}
+/*estilo pestanas */
+.tabs {
+    display: flex;
+    background-color: #1E1E1E;
+}
+.tab {
+    flex: 1;
+    padding: 15px;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+    background-color: #1E1E1E;
+}
+.tab:hover {
+    background-color: #1E1E1E;
+}
+.tab.active {
+    background-color: #1E1E1E;
+}
+.content {
+    padding: 20px;
+    display: none;
+}
+.content.active {
+    display: block;
+}
+
+/*estilos del navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1E1E1E;
+    color: white;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    width: 98%;
+    z-index: 1000;
+}
+.navbar .tabs {
+    display: flex;
+}
+.navbar .tabs .tab {
+    margin-right: 15px;
+    padding: 10px 15px;
+    cursor: pointer;
+    background-color: #1E1E1E;
+    color: white;
+    border-radius: 5px;
+}
+.navbar .tabs .tab:hover {
+    background-color: #555;
+}
+.navbar .tabs .tab.active {
+    background-color: #4D4D4D;
+}
+.navbar .actions {
+    display: flex;
+}
+.navbar .actions .action-btn {
+    margin-left: 15px;
+    padding: 10px 15px;
+    cursor: pointer;
+    background-color: #444;
+    color: white;
+    border-radius: 30px;
+    text-decoration: none;
+}
+.navbar .actions .action-btn:hover {
+    background-color: #555;
+}
+#btn-register {
+    background-color: #F4C542; /* Color verde para el botón de registro */
+    color: #000; /* Color del texto en el botón de registro */
+    font-weight: bold; /* Texto en negrita */
+    border-radius: 25px; /* Bordes redondeados */
+}
+#btn-login {
+    background-color: #26A17B; /* Color verde para el botón de registro */
+    color: #000; /* Color del texto en el botón de registro */
+    font-weight: bold; /* Texto en negrita */
+    border-radius: 25px; /* Bordes redondeados */
+}
+.content {
+    padding: 80px 20px; /* Add padding to avoid overlap with fixed navbar */
+}
+
+/*imagenes del navbar */
+
+.navbar-logo {
+    height: 40px; /* Ajusta el tamaño del logotipo */
+    width: auto; /* Mantén la proporción del logotipo */
+}
+.btn-language {
+    height: 30px; /* Ajusta el tamaño boton idioma */
+    width: auto; /* Mantén la proporción del logotipo */
+}
+.btn-bright {
+    height: 30px; /* Ajusta el tamaño boton bright */
+    width: auto; /* Mantén la proporción del logotipo */
+}
+
+/* Contenedor del carrusel */
+.logo {
+    height: 150px; /* Ajusta el tamaño del logotipo */
+    width: auto; /* Mantén la proporción del logotipo */
+    align-items: center;
+    padding-left: 40%;
+}
+.carousel-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+/* Carrusel */
+.carousel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 300%; /* Ajusta el ancho para incluir todas las imágenes */
+}
+
+/* Elementos del carrusel */
+.carousel-item {
+    flex: 1 0 20%; /* Cada imagen ocupa el 20% del ancho del contenedor */
+    text-align: center;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 400px;
+    display: block;
+}
+
+/* Controles del carrusel */
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    font-size: 24px;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.carousel-control.prev {
+    left: 10px;
+}
+
+.carousel-control.next {
+    right: 10px;
+}
+
+.carousel-control:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Sección "Nosotros" */
+.about-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    gap: 20px;
+    background-color: #f9f9f9;
+}
+
+.about-image {
+    width: 30%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.about-content {
+    max-width: 40%;
+    text-align: left;
+}
+
+.about-content h2 {
+    font-size: 40px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.about-content p {
+    font-size: 30px;
+    text-align: justify;
+    line-height: 1.6;
+    color: #555;
+}

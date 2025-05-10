@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Registro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1E1E1E;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #F4C542;
+            border-radius: 10px;
+            box-shadow: 0 4px 25px #F4C542;
+            background-color: #4D4D4D;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: #dddddd;
+        }
+        .header-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .header-buttons button {
+            padding: 10px 15px;
+            cursor: pointer;
+            background-color: #26A17B;
+            color: #1E1E1E;
+            font-weight: bold;
+            border: none;
+            border-radius: 25px;
+        }
+        .header-buttons button:hover {
+            background-color: #218838;
+        }
+        .progress-bar {
+            height: 10px;
+            background-color: #20c490;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .progress-bar div {
+            height: 100%;
+            background-color: #F4C542;
+            width: 33%; /* Default to step 1 */
+        }
+        .form-step {
+            display: none;
+        }
+        .form-step.active {
+            display: block;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select {
+            width: 90%;
+            padding: 15px;
+            border: 1px solid #26A17B;
+            border-radius: 15px;
+        }
+        .form-buttons {
+            display: flex;
+            justify-content: flex-end;
+        }
+        .form-buttons button {
+            padding: 10px 15px;
+            cursor: pointer;
+            background-color: #F4C542;
+            color: #1E1E1E;
+            font-weight: bold;
+            font-size: 17px;
+            border: none;
+            border-radius: 25px;
+            width: 150px;
+            height: 50px;
+        }
+        .form-buttons button:hover {
+            background-color: #eeb006;
+        }   
+        
+        #SupportButton {
+            background-color: #F4C542; /* Color gris para el botón de atrás */
+            border-radius: 30px;
+        }
+        #SupportButton:hover {
+            background-color: #eeb006;
+        }
+        
+        .btn-customer-service {
+        height: 30px; /* Ajusta el tamaño boton bright */
+        width: auto; /* Mantén la proporción del logotipo */
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-buttons">
+            <button id="backButton" onclick="goToPreviousStep()">Anterior</button>
+            <button id="SupportButton" onclick="alert('Soporte: Contacta con nosotros al correo soporte@example.com')"><img src="images/icon/customer-service.png" alt="Img customer-service" class="btn-customer-service"></button>
+
+        </div>
+        <div class="progress-bar">
+            <div id="progress"></div>
+        </div>
+        <form id="registerForm">
+            <!-- Paso 1 -->
+            <div id="step1" class="form-step active">
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="apellidos">Apellidos</label>
+                    <input type="text" id="apellidos" name="apellidos" required>
+                </div>
+                <div class="form-group">
+                    <label for="fechaNacimiento">Fecha de Nacimiento</label>
+                    <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
+                </div>
+                <div class="form-group">
+                    <label for="paisResidencia">País de Residencia</label>
+                    <select id="paisResidencia" name="paisResidencia" required>
+                        <option value="bolivia">🇧🇴 Bolivia</option>
+                        <option value="argentina">🇦🇷 Argentina</option>
+                        <option value="peru">🇵🇪 Perú</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="ciudadResidencia">Ciudad de Residencia</label>
+                    <input type="text" id="ciudadResidencia" name="ciudadResidencia" required>
+                </div>
+                <div class="form-buttons">
+                    <button type="button" onclick="goToNextStep()">Siguiente</button>
+                </div>
+            </div>
+            <!-- Paso 2 -->
+            <div id="step2" class="form-step">
+                <div class="form-group">
+                    <label for="nacionalidad">Nacionalidad</label>
+                    <select id="nacionalidad" name="nacionalidad" required>
+                        <option value="boliviano">Boliviano</option>
+                        <option value="argentino">Argentino</option>
+                        <option value="peruano">Peruano</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tipoDocumento">Tipo de Documento</label>
+                    <select id="tipoDocumento" name="tipoDocumento" required>
+                        <option value="id">ID</option>
+                        <option value="pasaporte">Pasaporte</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="numeroDocumento">Número de Documento</label>
+                    <input type="number" id="numeroDocumento" name="numeroDocumento" required>
+                </div>
+                <div class="form-group">
+                    <label for="numeroTelefono">Número de Teléfono</label>
+                    <input type="tel" id="numeroTelefono" name="numeroTelefono" required>
+                </div>
+                <div class="form-buttons">
+                    <button type="button" onclick="goToNextStep()">Siguiente</button>
+                </div>
+            </div>
+            <!-- Paso 3 -->
+            <div id="step3" class="form-step">
+                <h2>Registro completo</h2>
+                <p>¡Gracias por registrarte! Ahora puedes acceder a tu cuenta.</p>
+                <div class="form-buttons">
+                    <button type="button" onclick="window.location.href='tu_cuenta.html'">Ir a tu cuenta</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        let currentStep = 1;
+    
+        function goToNextStep() {
+            // Validar los campos del paso actual
+            const currentFormStep = document.getElementById(`step${currentStep}`);
+            const inputs = currentFormStep.querySelectorAll('input, select');
+            let isValid = true;
+    
+            inputs.forEach(input => {
+                if (!input.checkValidity()) {
+                    isValid = false;
+                    input.reportValidity(); // Muestra el mensaje de validación
+                }
+            });
+    
+            // Si todos los campos son válidos, avanzar al siguiente paso
+            if (isValid && currentStep < 3) {
+                document.getElementById(`step${currentStep}`).classList.remove('active');
+                currentStep++;
+                document.getElementById(`step${currentStep}`).classList.add('active');
+                updateProgressBar();
+            }
+        }
+    
+        function goToPreviousStep() {
+            if (currentStep > 1) {
+                document.getElementById(`step${currentStep}`).classList.remove('active');
+                currentStep--;
+                document.getElementById(`step${currentStep}`).classList.add('active');
+                updateProgressBar();
+            }
+        }
+    
+        function updateProgressBar() {
+            const progress = document.getElementById('progress');
+            progress.style.width = `${(currentStep / 3) * 100}%`;
+        }
+    </script>
+</body>
+</html>
