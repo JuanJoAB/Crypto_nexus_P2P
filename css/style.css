@@ -2,12 +2,21 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #4D4D4D;
+    width: 80%;
+    margin: 0 auto;
+    background-color: #a1a1a1;
+    background-image: "images/image1.jpg"; /* URL de la imagen de fondo */
+    background-size: cover;        /* Ajusta la imagen al tamaño del div */
+    background-position: center;   /* Centra la imagen */   
+    background-repeat: no-repeat;   /* Evita que la imagen se repita */
+    background-color: rgba(255, 255, 255, 0.5); /* blanco semitransparente */
+    background-blend-mode: overlay; /* o multiply, lighten, etc. */
 }
 /*estilo pestanas */
 .tabs {
     display: flex;
     background-color: #1E1E1E;
+    
 }
 .tab {
     flex: 1;
@@ -16,12 +25,13 @@ body {
     color: white;
     cursor: pointer;
     background-color: #1E1E1E;
+    
 }
 .tab:hover {
     background-color: #1E1E1E;
 }
 .tab.active {
-    background-color: #1E1E1E;
+    background-color: #4D4D4D;
 }
 .content {
     padding: 20px;
@@ -29,6 +39,7 @@ body {
 }
 .content.active {
     display: block;
+    background-color: #4D4D4D 
 }
 
 /*estilos del navbar */
@@ -38,10 +49,10 @@ body {
     align-items: center;
     background-color: #1E1E1E;
     color: white;
-    padding: 10px 20px;
+    padding: 10px 19px;
     position: fixed;
     top: 0;
-    width: 98%;
+    width: 78%;
     z-index: 1000;
 }
 .navbar .tabs {
