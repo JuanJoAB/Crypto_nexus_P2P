@@ -107,13 +107,14 @@
     font-size: 20px;
     color: #ffffffc2;
 }
+.action:hover {
+    background-color: #eeb006;
+}
+
 .icons2 {
     height: 70px; /* Mantén la proporción del logotipo */
     width: auto;
     padding: 20px 0px 0px 0px;
     
     vertical-align: middle;
-}
-.action:hover {
-    background-color: #eeb006;
 }
