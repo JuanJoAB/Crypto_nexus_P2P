@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CriptoNexus - Comprar</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      padding: 20px;
+    }
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .tab {
+      padding: 10px 20px;
+      margin: 0 5px;
+      cursor: pointer;
+      background-color: #ddd;
+      border-radius: 6px;
+    }
+    .tab.active {
+      background-color: #4CAF50;
+      color: white;
+    }
+    .ordenes-container {
+      height: 400px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      padding: 10px;
+      width: 100%;
+      max-width: 600px;
+    }
+    .orden {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 10px;
+      background: #f9f9f9;
+      position: relative;
+    }
+    .orden .precio {
+      font-weight: bold;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+    }
+    .orden .boton-comprar {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 4px 10px;
+    }
+    .orden .detalles,
+    .orden .footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+      font-size: 0.9em;
+    }
+    .footer {
+      color: #555;
+    }
+    .paginacion {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    form {
+      margin-top: 20px;
+      max-width: 600px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    form input, form textarea, form button {
+      padding: 10px;
+      font-size: 1rem;
+    }
+    #vender-container {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+    #preview {
+      max-width: 100%;
+      max-height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div class="tabs">
+    <div class="tab active" id="tab-comprar">Comprar</div>
+    <div class="tab" id="tab-vender">Vender</div>
+  </div>
+
+  <div class="ordenes-container" id="ordenes-container"></div>
+  <div class="paginacion" id="paginacion">
+    <button onclick="cambiarPagina(-1)">Anterior</button>
+    <span id="pagina-actual">1</span>
+    <button onclick="cambiarPagina(1)">Siguiente</button>
+  </div>
+
+  <div id="vender-container">
+    <form id="form-vender">
+      <h3>Crear nueva publicación de venta</h3>
+      <input type="number" name="id_usuario" placeholder="ID de Usuario" required>
+      <input type="number" step="0.00000001" name="cantidad_venta" placeholder="Cantidad a vender (USDT)" required>
+      <input type="number" step="0.01" name="precio_venta_bob" placeholder="Precio por unidad (BOB)" required>
+      <input type="number" step="0.01" name="minimo_compra" placeholder="Mínimo de compra (BOB)" required>
+      <textarea name="reglas_vendedor" placeholder="Reglas del vendedor (opcional)"></textarea>
+      <input type="file" id="imagen_qr" accept="image/*">
+      <img id="preview" src="" alt="Previsualización QR" style="display: none;">
+      <button type="submit">Publicar venta</button>
+    </form>
+  </div>
+
+  <script>
+    let paginaActual = 1;
+
+    function cargarOrdenes(pagina = 1) {
+      fetch(`http://localhost:5000/ordenes?page=${pagina}`)
+        .then(res => res.json())
+        .then(ordenes => {
+          const contenedor = document.getElementById('ordenes-container');
+          contenedor.innerHTML = '';
+          ordenes.forEach(o => {
+            const bloque = document.createElement('div');
+            bloque.className = 'orden';
+            bloque.innerHTML = `
+              <div class="precio">$${o.precio_de_venta}</div>
+              <button class="boton-comprar">Comprar</button>
+              <div class="detalles">
+                <div>Mínimo: ${o.minimo}</div>
+                <div>Máximo: ${o.maximo}</div>
+              </div>
+              <div class="detalles">
+                <div>Vendedor: ${o.nombre_vendedor}</div>
+              </div>
+              <div class="footer">
+                <div>⭐ ${o.puntuacion}</div>
+                <div>% ${o.cantidad_ordenes}</div>
+              </div>
+            `;
+            contenedor.appendChild(bloque);
+          });
+          document.getElementById('pagina-actual').textContent = pagina;
+        });
+    }
+
+    function cambiarPagina(direccion) {
+      if (paginaActual + direccion < 1) return;
+      paginaActual += direccion;
+      cargarOrdenes(paginaActual);
+    }
+
+    document.getElementById('form-vender').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = new FormData();
+      const inputs = this.querySelectorAll('input, textarea');
+      inputs.forEach(input => {
+        if (input.name) formData.append(input.name, input.value);
+      });
+      const imagen = document.getElementById('imagen_qr').files[0];
+      if (imagen) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          formData.append('imagen_qr', event.target.result);
+          enviarFormulario(formData);
+        };
+        reader.readAsDataURL(imagen);
+      } else {
+        enviarFormulario(formData);
+      }
+    });
+
+    function enviarFormulario(formData) {
+      fetch('http://localhost:5000/nueva-orden', {
+        method: 'POST',
+        body: JSON.stringify(Object.fromEntries(formData.entries())),
+        headers: { 'Content-Type': 'application/json' }
+      })
+      .then(res => res.json())
+      .then(response => {
+        alert('Publicación creada con éxito');
+        document.getElementById('form-vender').reset();
+        document.getElementById('preview').style.display = 'none';
+        cargarOrdenes(paginaActual);
+      });
+    }
+
+    // Tabs toggle
+    document.getElementById('tab-comprar').addEventListener('click', () => {
+      document.getElementById('tab-comprar').classList.add('active');
+      document.getElementById('tab-vender').classList.remove('active');
+      document.getElementById('ordenes-container').style.display = 'block';
+      document.getElementById('paginacion').style.display = 'flex';
+      document.getElementById('vender-container').style.display = 'none';
+    });
+    document.getElementById('tab-vender').addEventListener('click', () => {
+      document.getElementById('tab-vender').classList.add('active');
+      document.getElementById('tab-comprar').classList.remove('active');
+      document.getElementById('ordenes-container').style.display = 'none';
+      document.getElementById('paginacion').style.display = 'none';
+      document.getElementById('vender-container').style.display = 'flex';
+    });
+
+    document.getElementById('imagen_qr').addEventListener('change', function() {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const preview = document.getElementById('preview');
+          preview.src = e.target.result;
+          preview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      cargarOrdenes();
+    });
+  </script>
+</body>
+</html>

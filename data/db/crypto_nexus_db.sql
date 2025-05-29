@@ -12,6 +12,7 @@ CREATE TABLE usuarios (
     numero_telefono VARCHAR(20),
     numero_ordenes_venta INT DEFAULT 0,
     porcentaje_ordenes_exitosas DECIMAL(5,2) DEFAULT 0.00,
+    puntuacion_usuario DECIMAL(5,2) DEFAULT 0.00,
     saldo_cripto DECIMAL(18,8) DEFAULT 0.0,
     saldo_fondo_ahorro DECIMAL(18,8) DEFAULT 0.0,
     saldo_publicacion_venta DECIMAL(18,8) DEFAULT 0.0,
@@ -23,6 +24,8 @@ CREATE TABLE publicaciones_venta (
     id_publicacion INT AUTO_INCREMENT PRIMARY KEY,
     id_usuario INT,
     cantidad_venta DECIMAL(18,8),
+    precio_venta_bob DECIMAL(18,2),
+    minimo_compra DECIMAL(18,2),
     imagen_qr TEXT,
     reglas_vendedor TEXT,
     estado ENUM('activa', 'completada', 'cancelada') DEFAULT 'activa',
@@ -86,3 +89,46 @@ CREATE TABLE cambios_directos (
     fecha_cambio DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
 );
+
+-- Trigger para actualizar la puntuacion total del usuario después de una transferencia      
+DELIMITER //
+
+CREATE TRIGGER actualizar_puntuacion_usuario
+AFTER UPDATE ON compras
+FOR EACH ROW
+BEGIN
+    DECLARE id_vendedor INT;
+    DECLARE total_ordenes INT;
+    DECLARE exitosas INT;
+
+    -- Solo actualizar si el estado cambió a 'completada'
+    IF NEW.estado = 'completada' AND OLD.estado != 'completada' THEN
+
+        -- Obtener el id del vendedor (dueño de la publicación)
+        SELECT id_usuario INTO id_vendedor
+        FROM publicaciones_venta
+        WHERE id_publicacion = NEW.id_publicacion;
+
+        -- Contar todas las compras asociadas a publicaciones del vendedor
+        SELECT COUNT(*) INTO total_ordenes
+        FROM compras c
+        JOIN publicaciones_venta p ON c.id_publicacion = p.id_publicacion
+        WHERE p.id_usuario = id_vendedor;
+
+        -- Contar las compras completadas exitosamente
+        SELECT COUNT(*) INTO exitosas
+        FROM compras c
+        JOIN publicaciones_venta p ON c.id_publicacion = p.id_publicacion
+        WHERE p.id_usuario = id_vendedor AND c.estado = 'completada';
+
+        -- Actualizar la puntuación del usuario
+        UPDATE usuarios
+        SET 
+            numero_ordenes_venta = total_ordenes,
+            porcentaje_ordenes_exitosas = (exitosas / total_ordenes) * 100,
+            puntuacion_usuario = (exitosas / total_ordenes) * 100
+        WHERE id_usuario = id_vendedor;
+
+    END IF;
+END;
+//DELIMITER ;

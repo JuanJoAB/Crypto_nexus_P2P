@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="data/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;400;700;900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
     <title>Crypto</title>
 </head>
-<body background="images/image2.jpg">
+<body background="data/images/image2.jpg">
     <div class="navbar">
         <div class="tabs">
-            <img src="images/logo.png" alt="Logo" class="navbar-logo">
+            <img src="data/images/logo.png" alt="Logo" class="navbar-logo">
             <div class="tab active" onclick="showContent('inicio')">INICIO</div>
             <div class="tab" onclick="showContent('nosotros')">NOSOTROS</div>
             <div class="tab" onclick="showContent('guia')">GUÍA</div>
@@ -21,24 +21,24 @@
         <div class="actions">
             <button id="btn-register" class="action-btn btn-register">Registrarse</button>
             <button id="btn-login" class="action-btn btn-login">Iniciar Sesión</button>
-            <a href="#" class="action-btn"><img src="images/icon/lang.png" alt="Img language" class="btn-language"></a>
-            <a href="#" class="action-btn"><img src="images/icon/brightness.png" alt="Img bright" class="btn-bright"></a>
+            <a href="#" class="action-btn"><img src="data/images/icon/lang.png" alt="Img language" class="btn-language"></a>
+            <a href="#" class="action-btn"><img src="data/images/icon/brightness.png" alt="Img bright" class="btn-bright"></a>
         
         </div>
     </div>
 
     <div id="inicio" class="content active">
-        <img src="images/logo.png" alt="Logo" class="logo">
+        <img src="data/images/logo.png" alt="Logo" class="logo">
         <div class="carousel-container">
             <div class="carousel">
                 <div class="carousel-item">
-                    <a href="https://example.com/link1"><img src="images/image1.jpg" alt="Imagen 1"></a>
+                    <a href="https://example.com/link1"><img src="data/images/image1.jpg" alt="Imagen 1"></a>
                 </div>
                 <div class="carousel-item">
-                    <a href="https://example.com/link2"><img src="images/image2.jpg" alt="Imagen 2"></a>
+                    <a href="https://example.com/link2"><img src="data/images/image2.jpg" alt="Imagen 2"></a>
                 </div>
                 <div class="carousel-item">
-                    <a href="https://example.com/link3"><img src="images/image3.jpg" alt="Imagen 3"></a>
+                    <a href="https://example.com/link3"><img src="data/images/image3.jpg" alt="Imagen 3"></a>
                 </div>
             </div>
             <button class="carousel-control prev" onclick="moveCarousel(-1)">&#10094;</button>
@@ -80,7 +80,7 @@
 
     <div id="nosotros" class="content">
         <div class="about-section">
-            <img src="images/about.jpg" alt="Imagen de Nosotros" class="about-image">
+            <img src="data/images/about.jpg" alt="Imagen de Nosotros" class="about-image">
             <div class="about-content">
                 <h2>Sobre Nosotros</h2>
                 <p>
@@ -99,7 +99,7 @@
                     en un entorno confiable y accesible para todos.
                 </p>
             </div>
-            <img src="images/vision.jpg" alt="Imagen de Nosotros" class="about-image">
+            <img src="data/images/vision.jpg" alt="Imagen de Nosotros" class="about-image">
         </div>
     </div>
     <div id="guia" class="content">
@@ -111,6 +111,6 @@
         <p>Fusce ac felis sit amet ligula pharetra condimentum. Maecenas vestibulum mollis diam. Pellentesque ut neque.</p>
     </div>
 
-    <script src="js/app.js"></script>
+    <script src="data/js/app.js"></script>
 </body>
 </html>
