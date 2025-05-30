@@ -13,16 +13,14 @@ const emailError = document.getElementById('email-error');
 togglePasswordButton.addEventListener('click', () => {
     const type = passwordInput.type === 'password' ? 'text' : 'password';
     passwordInput.type = type;
-    repeatPasswordInput.type = type;
+
     const img = document.getElementById("eye_icon");
-    let eyeimg = 1;
+    // cambia la fuente de la imagen
     if (type === 'text') {
-      img.src = "images/icon/eye-off.png";
-      eyeimg = 2;
+        img.src = EYE_CLOSED_ICON_URL; // Usa la variable definida en el HTML
     } else {
-      img.src = "images/icon/eye.png";
-      eyeimg = 1;
-    }  
+        img.src = EYE_OPEN_ICON_URL; // Usa la variable definida en el HTML
+    }
 });
 
 

@@ -1,4 +1,5 @@
 -- Tabla de usuarios
+-- Tabla de usuarios
 CREATE TABLE usuarios (
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(50),
@@ -10,6 +11,7 @@ CREATE TABLE usuarios (
     tipo_documento VARCHAR(20),
     documento_identidad VARCHAR(30) UNIQUE,
     numero_telefono VARCHAR(20),
+    password CHAR(102) NOT NULL,
     numero_ordenes_venta INT DEFAULT 0,
     porcentaje_ordenes_exitosas DECIMAL(5,2) DEFAULT 0.00,
     puntuacion_usuario DECIMAL(5,2) DEFAULT 0.00,
@@ -26,7 +28,7 @@ CREATE TABLE publicaciones_venta (
     cantidad_venta DECIMAL(18,8),
     precio_venta_bob DECIMAL(18,2),
     minimo_compra DECIMAL(18,2),
-    imagen_qr TEXT,
+    imagen_qr BLOB,
     reglas_vendedor TEXT,
     estado ENUM('activa', 'completada', 'cancelada') DEFAULT 'activa',
     fecha_publicacion DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -90,6 +92,7 @@ CREATE TABLE cambios_directos (
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
 );
 
+
 -- Trigger para actualizar la puntuacion total del usuario después de una transferencia      
 DELIMITER //
 
@@ -131,66 +134,4 @@ BEGIN
 
     END IF;
 END;
-//
-
-DELIMITER ;
-
---insertar usuarios de ejemplo
-
--- Vendedor
-INSERT INTO usuarios (
-    nombre, apellidos, fecha_nacimiento, pais_residencia, ciudad_residencia,
-    nacionalidad, tipo_documento, documento_identidad, numero_telefono
-) VALUES (
-    'Carlos', 'Rojas', '1990-04-12', 'Bolivia', 'La Paz',
-    'Boliviana', 'CI', '12345678LP', '+59170000001'
-);
-
--- Comprador
-INSERT INTO usuarios (
-    nombre, apellidos, fecha_nacimiento, pais_residencia, ciudad_residencia,
-    nacionalidad, tipo_documento, documento_identidad, numero_telefono
-) VALUES (
-    'Lucía', 'Gutiérrez', '1995-09-22', 'Bolivia', 'Cochabamba',
-    'Boliviana', 'CI', '87654321CB', '+59170000002'
-);
-
--- Asumiendo que el id de Carlos es 1
-INSERT INTO publicaciones_venta (
-    id_usuario, cantidad_venta, precio_venta_bob, minimo_compra, imagen_qr, reglas_vendedor
-) VALUES (
-    1, 100.00, 7.10, 10.00, 'qr_carlos.png', 'Solo pagos inmediatos via QR.'
-);
-
--- Compra 1 - Completada
-INSERT INTO compras (
-    id_publicacion, id_comprador, cantidad_comprada, estado
-) VALUES (
-    1, 2, 20.00, 'completada'
-);
-
--- Compra 2 - Cancelada
-INSERT INTO compras (
-    id_publicacion, id_comprador, cantidad_comprada, estado
-) VALUES (
-    1, 2, 30.00, 'cancelada'
-);
-
--- Compra 3 - En progreso
-INSERT INTO compras (
-    id_publicacion, id_comprador, cantidad_comprada, estado
-) VALUES (
-    1, 2, 15.00, 'en progreso'
-);
-
--- Simular que la compra 3 fue completada (esto disparará el trigger)
-UPDATE compras
-SET estado = 'completada'
-WHERE id_compra = 3;
-
-SELECT
-    nombre, numero_ordenes_venta, porcentaje_ordenes_exitosas, puntuacion_usuario
-FROM usuarios
-WHERE id_usuario = 1;
-
-
+//DELIMITER ;

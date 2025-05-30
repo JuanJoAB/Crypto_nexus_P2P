@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/styleregister.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/styleregister.css')}}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
     <title>Registro</title>
 </head>
 <body id="register-body">
     <div class="register-container">
-        <img src="images/logo.png" alt="Logo de la empresa" class="logo">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo de la empresa" class="logo">
         <form id="register-form">
             <div class="form-group">
                 <label for="email">Dirección de correo electrónico</label>
@@ -24,7 +24,7 @@
                 <label for="password">Contraseña</label>
                 <div class="password-container">
                     <input type="password" id="password" placeholder="Ingresa tu contraseña" required>
-                    <button type="button" id="toggle-password" ><img id="eye_icon" src="images/icon/eye.png" class="btn-eye" alt="eye-icon"></button>
+                    <button type="button" id="toggle-password" ><img id="eye_icon" src="{{ url_for('static', filename='images/icon/eye.png') }}" class="btn-eye" alt="eye-icon"></button>
                 </div>
             </div>
             <div class="form-group" id="repeat-password-group" style="display: none;">
@@ -41,6 +41,10 @@
             </div>
         </form>
     </div>
-    <script src="js/register.js"></script>
+    <script>
+        const EYE_OPEN_ICON_URL = "{{ url_for('static', filename='images/icon/eye.png') }}";
+        const EYE_CLOSED_ICON_URL = "{{ url_for('static', filename='images/icon/eye-off.png') }}";
+    </script>
+    <script src="{{url_for('static', filename='js/register.js')}}"></script>
 </body>
 </html>

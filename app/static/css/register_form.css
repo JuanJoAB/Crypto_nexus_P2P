@@ -1,0 +1,101 @@
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1E1E1E;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #F4C542;
+            border-radius: 10px;
+            box-shadow: 0 4px 25px #F4C542;
+            background-color: #4D4D4D;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: #dddddd;
+        }
+        .header-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .header-buttons button {
+            padding: 10px 15px;
+            cursor: pointer;
+            background-color: #26A17B;
+            color: #1E1E1E;
+            font-weight: bold;
+            border: none;
+            border-radius: 25px;
+        }
+        .header-buttons button:hover {
+            background-color: #218838;
+        }
+        .progress-bar {
+            height: 10px;
+            background-color: #20c490;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .progress-bar div {
+            height: 100%;
+            background-color: #F4C542;
+            width: 33%; /* Default to step 1 */
+        }
+        .form-step {
+            display: none;
+        }
+        .form-step.active {
+            display: block;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select {
+            width: 90%;
+            padding: 15px;
+            border: 1px solid #26A17B;
+            border-radius: 15px;
+        }
+        .form-buttons {
+            display: flex;
+            justify-content: flex-end;
+        }
+        .form-buttons button {
+            padding: 10px 15px;
+            cursor: pointer;
+            background-color: #F4C542;
+            color: #1E1E1E;
+            font-weight: bold;
+            font-size: 17px;
+            border: none;
+            border-radius: 25px;
+            width: 150px;
+            height: 50px;
+        }
+        .form-buttons button:hover {
+            background-color: #eeb006;
+        }   
+        
+        #SupportButton {
+            background-color: #F4C542; /* Color gris para el botón de atrás */
+            border-radius: 30px;
+        }
+        #SupportButton:hover {
+            background-color: #eeb006;
+        }
+        
+        .btn-customer-service {
+        height: 30px; /* Ajusta el tamaño boton bright */
+        width: auto; /* Mantén la proporción del logotipo */
+        }

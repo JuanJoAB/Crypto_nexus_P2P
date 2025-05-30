@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS
 import mysql.connector
 from datetime import datetime
@@ -6,6 +6,10 @@ from datetime import datetime
 app = Flask(__name__)
 CORS(app)
 
+@app.route('/')
+def index():
+    return render_template('index.html')
+'''
 # Conexión a la base de datos
 def get_db():
     return mysql.connector.connect(
@@ -77,6 +81,6 @@ def nueva_orden():
     finally:
         cursor.close()
         conn.close()
-
+'''
 if __name__ == '__main__':
     app.run(debug=True)

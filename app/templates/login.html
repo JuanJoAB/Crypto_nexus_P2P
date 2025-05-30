@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/stylelogin.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/stylelogin.css')}}">
     <title>Inicio de Sesión</title>
 </head>
 <body>
     <div class="login-container">
-        <img src="images/logo.png" alt="Logo de la empresa" class="logo">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo de la empresa" class="logo">
         <form id="login-form">
             <div class="form-group">
                 <label for="username">Nombre de usuario</label>
@@ -18,7 +18,7 @@
                 <label for="password">Contraseña</label>
                 <div class="password-container">
                     <input type="password" id="password" placeholder="Ingresa tu contraseña" required>
-                    <button type="button" id="toggle-password"><img id="eye_icon" src="images/icon/eye.png" alt="Img bright" class="btn-eye"></button>
+                    <button type="button" id="toggle-password"><img id="eye_icon" src="{{ url_for('static', filename='images/icon/eye.png') }}" alt="Img bright" class="btn-eye"></button>
                 </div>
             </div>
             <div class="form-group">
@@ -31,6 +31,10 @@
             </div>
         </form>
     </div>
-    <script src="js/login.js"></script>
+    <script>
+        const EYE_OPEN_ICON_URL = "{{ url_for('static', filename='images/icon/eye.png') }}";
+        const EYE_CLOSED_ICON_URL = "{{ url_for('static', filename='images/icon/eye-off.png') }}";
+    </script>
+    <script src="{{url_for('static', filename='js/login.js')}}"></script>
 </body>
 </html>

@@ -1,3 +1,4 @@
+
 // Selección de elementos
 const usernameInput = document.getElementById('username');
 const passwordInput = document.getElementById('password');
@@ -9,14 +10,13 @@ const registerButton = document.getElementById('register-button');
 togglePasswordButton.addEventListener('click', () => {
     const type = passwordInput.type === 'password' ? 'text' : 'password';
     passwordInput.type = type;
+
     const img = document.getElementById("eye_icon");
-    let eyeimg = 1;
+    // cambia la fuente de la imagen
     if (type === 'text') {
-      img.src = "images/icon/eye-off.png";
-      eyeimg = 2;
+        img.src = EYE_CLOSED_ICON_URL; // Usa la variable definida en el HTML
     } else {
-      img.src = "images/icon/eye.png";
-      eyeimg = 1;
+        img.src = EYE_OPEN_ICON_URL; // Usa la variable definida en el HTML
     }
 });
 
@@ -33,7 +33,7 @@ loginForm.addEventListener('submit', (e) => {
     const username = usernameInput.value;
     const password = passwordInput.value;
 
-    // Almacenar los datos
+    // Almacenar los datos (solo para demostración, en un proyecto real harías una petición AJAX)
     console.log({
         username,
         password
