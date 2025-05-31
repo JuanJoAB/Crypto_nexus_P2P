@@ -1,86 +1,59 @@
-from flask import Flask, render_template, request, jsonify
-from flask_cors import CORS
-import mysql.connector
-from datetime import datetime
+from flask import Flask, render_template, request, redirect, url_for, flash
+from flask_mysqldb import MySQL
+from werkzeug.security import generate_password_hash
+import os
+import re
 
 app = Flask(__name__)
-CORS(app)
+app.secret_key = 'clave_secreta'
+
+# Configuración de la base de datos
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_DB'] = 'cryptonexus'
+
+mysql = MySQL(app)
 
 @app.route('/')
 def index():
     return render_template('index.html')
-'''
-# Conexión a la base de datos
-def get_db():
-    return mysql.connector.connect(
-        host="localhost",
-        user="tu_usuario",
-        password="tu_contraseña",
-        database="criptonexus"
-    )
 
-# Obtener publicaciones de venta activas con información del vendedor
-@app.route('/publicaciones', methods=['GET'])
-def obtener_publicaciones():
-    try:
-        conn = get_db()
-        cursor = conn.cursor(dictionary=True)
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        email = request.form['email']
+        username = request.form['username']
+        password = request.form['password']
+        repeat_password = request.form.get('repeat_password')
 
-        query = """
-            SELECT pv.id_publicacion, pv.cantidad_venta, pv.precio_venta_bob,
-                   pv.minimo_compra, u.nombre AS nombre_vendedor,
-                   u.puntuacion_usuario, u.numero_ordenes_venta, u.porcentaje_ordenes_exitosas
-            FROM publicaciones_venta pv
-            JOIN usuarios u ON pv.id_usuario = u.id_usuario
-            WHERE pv.estado = 'activa'
-            ORDER BY pv.fecha_publicacion DESC
-        """
+        # Validación de contraseñas
+        if password != repeat_password:
+            flash('Las contraseñas no coinciden', 'danger')
+            return redirect(url_for('register'))
 
-        cursor.execute(query)
-        publicaciones = cursor.fetchall()
-        return jsonify(publicaciones)
+        if len(password) < 8 or not re.search(r'[A-Za-z]', password) or not re.search(r'[0-9]', password):
+            flash('La contraseña debe tener al menos 8 caracteres, incluir letras y números.', 'danger')
+            return redirect(url_for('register'))
 
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        hashed_password = generate_password_hash(password)
 
-    finally:
-        cursor.close()
-        conn.close()
+        try:
+            cur = mysql.connection.cursor()
+            cur.execute("""
+                INSERT INTO usuarios (nombre, documento_identidad, password)
+                VALUES (%s, %s, %s)
+            """, (username, email, hashed_password))
+            mysql.connection.commit()
+            cur.close()
+            flash('Registro exitoso', 'success')
+            return redirect(url_for('index'))
+        except Exception as e:
+            flash(f'Error al registrar: {str(e)}', 'danger')
+            return redirect(url_for('register'))
 
-# Crear una nueva publicación de venta
-@app.route('/nueva-orden', methods=['POST'])
-def nueva_orden():
-    data = request.get_json()
+    return render_template('register.html')
 
-    try:
-        conn = get_db()
-        cursor = conn.cursor()
-
-        query = """
-            INSERT INTO publicaciones_venta (
-                id_usuario, cantidad_venta, precio_venta_bob, 
-                minimo_compra, reglas_vendedor, imagen_qr
-            ) VALUES (%s, %s, %s, %s, %s, %s)
-        """
-
-        cursor.execute(query, (
-            data['id_usuario'],
-            data['cantidad_venta'],
-            data['precio_venta_bob'],
-            data['minimo_compra'],
-            data.get('reglas_vendedor', ''),
-            data.get('imagen_qr', '')
-        ))
-
-        conn.commit()
-        return jsonify({'mensaje': 'Publicación creada con éxito'}), 201
-
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-
-    finally:
-        cursor.close()
-        conn.close()
-'''
 if __name__ == '__main__':
     app.run(debug=True)
+

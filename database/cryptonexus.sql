@@ -2,8 +2,9 @@
 -- Tabla de usuarios
 CREATE TABLE usuarios (
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(50),
-    apellidos VARCHAR(50),
+    nombre VARCHAR(50), -- ahora actúa como "nickname"
+    nombre_completo VARCHAR(100), -- nombre y apellidos en un solo campo
+    email VARCHAR(100),
     fecha_nacimiento DATE,
     pais_residencia VARCHAR(50),
     ciudad_residencia VARCHAR(50),
@@ -28,7 +29,7 @@ CREATE TABLE publicaciones_venta (
     cantidad_venta DECIMAL(18,8),
     precio_venta_bob DECIMAL(18,2),
     minimo_compra DECIMAL(18,2),
-    imagen_qr BLOB,
+    imagen_qr LONGBLOB,
     reglas_vendedor TEXT,
     estado ENUM('activa', 'completada', 'cancelada') DEFAULT 'activa',
     fecha_publicacion DATETIME DEFAULT CURRENT_TIMESTAMP,

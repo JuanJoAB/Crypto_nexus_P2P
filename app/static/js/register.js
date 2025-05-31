@@ -44,28 +44,10 @@ passwordInput.addEventListener('input', () => {
 
 // Manejar el envío del formulario
 registerForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    // Almacenar los datos en variables
-    const email = emailInput.value;
-    const username = usernameInput.value;
-    const password = passwordInput.value;
-    const repeatPassword = repeatPasswordInput.value;
-    const termsAccepted = termsCheckbox.checked;
 
     // Validar que las contraseñas coincidan
     if (password !== repeatPassword) {
         alert('Las contraseñas no coinciden');
         return;
     }
-
-    // Almacenar los datos
-    console.log({
-        email,
-        username,
-        password,
-        termsAccepted
-    });
-
-    alert('Registro exitoso');
 });
