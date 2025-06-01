@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/register_form.css')}}">
 </head>
 <body>
-    <div class="container">
+     <div class="container">
         <div class="header-buttons">
             <button id="backButton" onclick="goToPreviousStep()">Anterior</button>
             <button id="SupportButton" onclick="alert('Soporte: Contacta con nosotros al correo soporte@example.com')"><img src="{{ url_for('static', filename='images/icon/customer-service.png') }}" alt="Img customer-service" class="btn-customer-service"></button>
@@ -87,6 +87,44 @@
         </form>
     </div>
 
-    <script src="{{url_for('static', filename='js/reg_form.js')}}"></script>
+    <script>
+        let currentStep = 1;
+    
+        function goToNextStep() {
+            // Validar los campos del paso actual
+            const currentFormStep = document.getElementById(`step${currentStep}`);
+            const inputs = currentFormStep.querySelectorAll('input, select');
+            let isValid = true;
+    
+            inputs.forEach(input => {
+                if (!input.checkValidity()) {
+                    isValid = false;
+                    input.reportValidity(); // Muestra el mensaje de validación
+                }
+            });
+    
+            // Si todos los campos son válidos, avanzar al siguiente paso
+            if (isValid && currentStep < 3) {
+                document.getElementById(`step${currentStep}`).classList.remove('active');
+                currentStep++;
+                document.getElementById(`step${currentStep}`).classList.add('active');
+                updateProgressBar();
+            }
+        }
+    
+        function goToPreviousStep() {
+            if (currentStep > 1) {
+                document.getElementById(`step${currentStep}`).classList.remove('active');
+                currentStep--;
+                document.getElementById(`step${currentStep}`).classList.add('active');
+                updateProgressBar();
+            }
+        }
+    
+        function updateProgressBar() {
+            const progress = document.getElementById('progress');
+            progress.style.width = `${(currentStep / 3) * 100}%`;
+        }
+    </script>
 </body>
 </html>

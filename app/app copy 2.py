@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_mysqldb import MySQL
 from werkzeug.security import generate_password_hash
-import os
 import re
 
 app = Flask(__name__)
@@ -9,8 +8,8 @@ app.secret_key = 'clave_secreta'
 
 # Configuración de la base de datos
 app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_USER'] = 'tu_usuario'
+app.config['MYSQL_PASSWORD'] = 'tu_contraseña'
 app.config['MYSQL_DB'] = 'cryptonexus'
 
 mysql = MySQL(app)
@@ -25,16 +24,14 @@ def register():
         email = request.form['email']
         username = request.form['username']
         password = request.form['password']
-        repeat_password = request.form.get('repeat_password')
+        repeat_password = request.form['repeat_password']
 
         # Validación de contraseñas
         if password != repeat_password:
-            flash('Las contraseñas no coinciden', 'danger')
-            return redirect(url_for('register'))
+            return render_template('register.html', error_message='Las contraseñas no coinciden')
 
         if len(password) < 8 or not re.search(r'[A-Za-z]', password) or not re.search(r'[0-9]', password):
-            flash('La contraseña debe tener al menos 8 caracteres, incluir letras y números.', 'danger')
-            return redirect(url_for('register'))
+            return render_template('register.html', error_message='La contraseña debe tener al menos 8 caracteres, incluir letras y números.')
 
         hashed_password = generate_password_hash(password)
 
@@ -49,11 +46,9 @@ def register():
             cur.close()
             return redirect(url_for('register_form'))
         except Exception as e:
-            flash(f'Error al registrar: {str(e)}', 'danger')
             return render_template('register.html', error_message=f'Error al registrar: {str(e)}')
 
     return render_template('register.html')
-
 
 @app.route('/register_form', methods=['GET', 'POST'])
 def register_form():

@@ -12,7 +12,7 @@ CREATE TABLE usuarios (
     tipo_documento VARCHAR(20),
     documento_identidad VARCHAR(30) UNIQUE,
     numero_telefono VARCHAR(20),
-    password CHAR(102) NOT NULL,
+    password CHAR(255) NOT NULL,
     numero_ordenes_venta INT DEFAULT 0,
     porcentaje_ordenes_exitosas DECIMAL(5,2) DEFAULT 0.00,
     puntuacion_usuario DECIMAL(5,2) DEFAULT 0.00,
