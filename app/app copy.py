@@ -104,25 +104,6 @@ def register_form():
 
     return render_template('register_form.html', current_user=user)
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        cur = mysql.connection.cursor()
-        cur.execute("SELECT id_usuario, nombre, password FROM usuarios WHERE nombre = %s", (username,))
-        user = cur.fetchone()
-        cur.close()
-
-        if user and check_password_hash(user[2], password):
-            session['user_id'] = user[0]
-            return redirect(url_for('dashboard', nombre=user[1]))
-        else:
-            flash('Nombre de usuario o contraseña incorrectos', 'danger')
-            return redirect(url_for('login'))
-    return render_template('login.html')
-
-
 @app.route('/dashboard/<nombre>')
 def dashboard(nombre):
     return render_template('dashboard.html', nombre=nombre)

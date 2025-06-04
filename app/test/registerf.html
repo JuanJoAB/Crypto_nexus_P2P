@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario de Registro</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    form {
+      max-width: 600px;
+      margin: auto;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="file"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+    }
+    .checkbox-group {
+      margin-top: 10px;
+    }
+    .checkbox-group label {
+      display: inline-block;
+      margin-right: 10px;
+    }
+    .buttons {
+      margin-top: 20px;
+    }
+    .buttons input {
+      padding: 10px 20px;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Formulario de Registro</h2>
+  <form>
+    <label>Nombre*:
+      <input type="text" name="nombre" required>
+    </label>
+
+    <label>Dirección*:
+      <input type="text" name="direccion" required>
+    </label>
+
+    <label>Cédula*:
+      <input type="text" name="cedula" required>
+    </label>
+
+    <label>Celular*:
+      <input type="text" name="celular" required>
+    </label>
+
+    <label>Email*:
+      <input type="email" name="email" required>
+    </label>
+
+    <label>Cargo*:
+      <input type="text" name="cargo" required>
+    </label>
+
+    <label>Login*:
+      <input type="text" name="login" value="45555" required>
+    </label>
+
+    <label>Clave*:
+      <input type="password" name="clave" required>
+    </label>
+
+    <div class="checkbox-group">
+      <strong>Permisos:</strong><br>
+      <label><input type="checkbox" name="permisos" value="escritorio"> Escritorio</label>
+      <label><input type="checkbox" name="permisos" value="estudiantes"> Estudiantes</label>
+      <label><input type="checkbox" name="permisos" value="docentes"> Docentes</label>
+      <label><input type="checkbox" name="permisos" value="acceso"> Acceso</label>
+      <label><input type="checkbox" name="permisos" value="consulta_inscripcion"> Consulta Inscripción</label>
+      <label><input type="checkbox" name="permisos" value="consulta_notas"> Consulta Notas</label>
+    </div>
+
+    <label>Foto:
+      <input type="file" name="foto">
+    </label>
+
+    <div class="buttons">
+      <input type="submit" value="Guardar">
+      <input type="reset" value="Cancelar">
+    </div>
+  </form>
+
+</body>
+</html>

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static', filename='css/dashboard.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/dashboard_init.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/dashboard_cv.css')}}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <title>Dashboard</title>
@@ -15,8 +16,8 @@
             <div class="actions">
                 <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="menubar-logo">
                 <div class="spacer">   </div>
-                <a class="action-btn">  username  <img src="{{ url_for('static', filename='images/icon/profile.png') }}" alt="Img language" class="btn-user"></a>
-                <a href="#" class="action-btn"><img src="{{ url_for('static', filename='images/icon/gear.png') }}" alt="Img bright" class="btn-configuration"></a>
+                <a class="action-btn">  {{ nombre }}  <img src="{{ url_for('static', filename='images/icon/profile.png') }}" alt="Img language" class="btn-user"></a>
+                <a class="action-btn"><img src="{{ url_for('static', filename='images/icon/gear2.png') }}" alt="Img bright" class="btn-configuration"></a>
             
             </div>
         </div>
@@ -59,7 +60,38 @@
         </div>
 
         <div id="intercambio" class="content">
-            
+            <div class="tabscv">
+                <div class="tabcv active" id="tab-comprar">Comprar</div>
+                <div class="tabcv" id="tab-vender">Vender</div>
+            </div>
+
+            <div class="ordenes-container" id="ordenes-container"></div>
+            <div class="paginacion" id="paginacion">
+                <button class="pagination_button" onclick="cambiarPagina(-1)">Anterior</button>
+                <span id="pagina-actual">1</span>
+                <button class="pagination_button" onclick="cambiarPagina(1)">Siguiente</button>
+            </div>
+
+            <div id="vender-container">
+                <h2 id="h3cv">Crear nueva publicación de venta</h2>
+
+                <div class="form-section">
+                <form id="form-vender">
+                    <input type="number" step="0.00000001" name="cantidad_venta" placeholder="Cantidad a vender (USDT)" required>
+                    <input type="number" step="0.01" name="precio_venta_bob" placeholder="Precio por unidad (BOB)" required>
+                    <input type="number" step="0.01" name="minimo_compra" placeholder="Mínimo de compra (BOB)" required>
+                    <textarea id="reglas_vendedor" name="reglas_vendedor" placeholder="Reglas del vendedor (opcional)"></textarea>
+                </form>
+
+                <div id="contenedor-imagen">
+                    <span>Subir QR</span>
+                    <img id="preview" alt="Previsualización QR">
+                    <input type="file" id="imagen_qr" accept="image/*">
+                </div>
+            </div>
+
+    <button type="submit" form="form-vender" class="submit-button">Publicar venta</button>
+  </div>  
         </div>
 
         <div id="earn" class="content">

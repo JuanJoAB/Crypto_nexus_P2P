@@ -20,7 +20,7 @@
             <!-- Paso 1 -->
             <div id="step1" class="form-step active">
                 <div class="form-group welcome-message">
-                    <h3>Bienvenido {{ current_user.nombre_completo }}</h3>
+                    <h3>Bienvenido {{ current_user.nombre }}</h3>
                     <p>Por favor, ingresa tu información personal para completar el registro.</p>
                 </div>
                 <div class="form-group">
@@ -81,7 +81,9 @@
                 <h2 class="form-group welcome-message">Registro completo</h2>
                 <p class="form-group welcome-message">¡Gracias por registrarte! Ahora puedes acceder a tu cuenta.</p>
                 <div class="form-buttons">
-                    <button type="submit" onclick="window.location.href='index.html'">Ir a tu cuenta</button>
+                    {% if current_user %}
+                    <button type="submit" onclick="window.location.href='{{ url_for('dashboard', nombre=current_user.nombre) }}'">Ir a tu cuenta</button>
+                    {% endif %}
                 </div>
             </div>
         </form>

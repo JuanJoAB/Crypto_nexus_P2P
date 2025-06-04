@@ -20,7 +20,7 @@
         </div>
         <div class="actions">
             <button id="btn-register" class="action-btn btn-register" onclick="window.location.href='{{ url_for('register') }}'">Registrarse</button>
-            <button id="btn-login" class="action-btn btn-login">Iniciar Sesión</button>
+            <button id="btn-login" class="action-btn btn-login" onclick="window.location.href='{{ url_for('login') }}'">Iniciar Sesión</button>
             <a href="#" class="action-btn"><img src="{{ url_for('static', filename='images/icon/lang.png') }}" alt="Img language" class="btn-language"></a>
             <a href="#" class="action-btn"><img src="{{ url_for('static', filename='images/icon/brightness.png') }}" alt="Img bright" class="btn-bright"></a>
         

@@ -136,3 +136,28 @@ BEGIN
     END IF;
 END;
 //DELIMITER ;
+
+DELIMITER //
+
+CREATE TRIGGER calcular_saldo_total
+BEFORE INSERT ON usuarios
+FOR EACH ROW
+BEGIN
+    SET NEW.saldo_total = NEW.saldo_cripto + NEW.saldo_fondo_ahorro + NEW.saldo_publicacion_venta;
+END;
+//
+
+CREATE TRIGGER actualizar_saldo_total
+BEFORE UPDATE ON usuarios
+FOR EACH ROW
+BEGIN
+    -- Solo actualiza si alguna de las columnas que contribuyen al total ha cambiado
+    IF NEW.saldo_cripto <> OLD.saldo_cripto OR
+       NEW.saldo_fondo_ahorro <> OLD.saldo_fondo_ahorro OR
+       NEW.saldo_publicacion_venta <> OLD.saldo_publicacion_venta THEN
+        SET NEW.saldo_total = NEW.saldo_cripto + NEW.saldo_fondo_ahorro + NEW.saldo_publicacion_venta;
+    END IF;
+END;
+//
+
+DELIMITER ;

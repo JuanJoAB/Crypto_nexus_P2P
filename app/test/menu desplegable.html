@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú Desplegable Sencillo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Alinea arriba para que el menú se vea bien */
+            min-height: 200px; /* Suficiente espacio para el ejemplo */
+            background-color: #f4f4f4;
+            padding-top: 50px; /* Espacio para el menú */
+        }
+
+        /* Contenedor principal del dropdown */
+        .dropdown {
+            position: relative; /* Muy importante para posicionar el menú */
+            display: inline-block; /* Para que ocupe solo el espacio necesario */
+        }
+
+        /* Botón del dropdown */
+        .dropdown-toggle {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-toggle:hover {
+            background-color: #0056b3;
+        }
+
+        /* Contenido del menú desplegable (oculto por defecto) */
+        .dropdown-menu {
+            display: none; /* Oculto por defecto */
+            position: absolute; /* Posicionado absolutamente con respecto a .dropdown */
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1; /* Asegura que el menú esté por encima de otros elementos */
+            border-radius: 4px;
+            top: 100%; /* Coloca el menú justo debajo del botón */
+            left: 0;
+            margin-top: 5px; /* Pequeño espacio entre el botón y el menú */
+        }
+
+        /* Opciones individuales dentro del menú */
+        .dropdown-item {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block; /* Para que cada opción ocupe su propia línea */
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: #ddd;
+        }
+
+        /* Clase para mostrar el menú (añadida/removida por JavaScript) */
+        .dropdown-menu.show {
+            display: block; /* Muestra el menú cuando tiene la clase 'show' */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dropdown">
+        <button class="dropdown-toggle" id="dropdownButton">Menú de Opciones</button>
+        <div class="dropdown-menu" id="dropdownMenu">
+            <a href="#opcion1" class="dropdown-item">Opción 1</a>
+            <a href="#opcion2" class="dropdown-item">Opción 2</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdownButton = document.getElementById('dropdownButton');
+            const dropdownMenu = document.getElementById('dropdownMenu');
+
+            // Función para alternar la visibilidad del menú
+            dropdownButton.addEventListener('click', function() {
+                dropdownMenu.classList.toggle('show');
+            });
+
+            // Cierra el menú si se hace clic fuera de él
+            window.addEventListener('click', function(event) {
+                // Si el clic no fue en el botón del menú ni dentro del menú mismo
+                if (!event.target.matches('#dropdownButton') && !dropdownMenu.contains(event.target)) {
+                    if (dropdownMenu.classList.contains('show')) {
+                        dropdownMenu.classList.remove('show');
+                    }
+                }
+            });
+
+            // Opcional: Cerrar el menú si se hace clic en una opción dentro del menú
+            dropdownMenu.querySelectorAll('.dropdown-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    dropdownMenu.classList.remove('show');
+                    // Aquí puedes agregar la lógica para lo que debe hacer cada opción
+                    console.log("Opción seleccionada:", this.textContent);
+                    // Puedes redirigir, ejecutar una función, etc.
+                    // window.location.href = this.href;
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
