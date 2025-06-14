@@ -23,6 +23,7 @@
         width: 100%;
         max-width: 600px;
         border-radius: 20px;
+        display: 'block';
     }
     .orden {
         border: 1px solid #ddd;

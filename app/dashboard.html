@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/dashboard.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/dashboard_init.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/dashboard_cv.css')}}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Dashboard</title>
+</head>
+<body>
+    <div class="maincontainer">
+        <div class="menubar">
+            <div class="actions">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="menubar-logo">
+                <div class="spacer">   </div>
+                <a class="action-btn">  {{ nombre }}  <img src="{{ url_for('static', filename='images/icon/profile.png') }}" alt="Img language" class="btn-user"></a>
+                <a class="action-btn"><img src="{{ url_for('static', filename='images/icon/gear2.png') }}" alt="Img bright" class="btn-configuration"></a>
+            
+            </div>
+        </div>
+        <div class="navbar">
+            <div class="tabs">
+                <div class="tab active" onclick="showContent('inicio')"><img src="{{ url_for('static', filename='images/icon/home.png') }}" alt="Img language" class="icons">Inicio</div>
+                <div class="tab" onclick="showContent('cambiar')"><img src="{{ url_for('static', filename='images/icon/change_tether.png') }}" alt="Img language" class="icons">Intercambio rapido</div>
+                <div class="tab" onclick="showContent('intercambio')"><img src="{{ url_for('static', filename='images/icon/change.png') }}" alt="Img language" class="icons">Intercambio P2P</div>
+                <div class="tab" onclick="showContent('earn')"><img src="{{ url_for('static', filename='images/icon/earn.png') }}" alt="Img language" class="icons">Gana</div>
+                <div class="tab" onclick="showContent('actividad')"><img src="{{ url_for('static', filename='images/icon/file.png') }}" alt="Img language" class="icons">Actividad</div>
+                <div class="tab" onclick="showContent('tutoriales')"><img src="{{ url_for('static', filename='images/icon/info.png') }}" alt="Img language" class="icons">Tutoriales</div>
+            </div>
+        </div>
+
+        <div id="inicio" class="content active">
+            <div class="main_balance">
+                <h3 id="text_balance">Balance total:</h3>
+                <img id="infotext" src="{{ url_for('static', filename='images/icon/info2.png') }}" alt="Img language" class="btn-info2" title="Información sobre el balance con la suma total de los saldos del usuario en todas las criptomonedas.">
+                <img id="usaicon" src="{{ url_for('static', filename='images/icon/usa.png') }}" alt="Img language" class="btn-user">
+                <h2 id="balance-simbol">$</h2>
+                <a id="tbalance" class="tbalance" type="text">  100.00 </a>
+                <button type="button" id="toggle-password"><img id="eye_icon" src="{{ url_for('static', filename='images/icon/eye-off.png') }}" alt="Img bright" class="btn-eye"></button>
+                
+            </div>
+            <div class="main_actions">
+                <div class="action deposit"><img src="{{ url_for('static', filename='images/icon/credit_card_2.png') }}" alt="Img language" class="icons2"></div>
+                <div class="action sent"><img src="{{ url_for('static', filename='images/icon/upload.png') }}" alt="Img language" class="icons2"></div>
+                <div class="action receive"><img src="{{ url_for('static', filename='images/icon/receive_money.png') }}" alt="Img language" class="icons2"></div>       
+                <p id="action_text" class="action_text" type="text">Recargar</p>
+                <p id="action_text" class="action_text" type="text">Enviar</p>
+                <p id="action_text" class="action_text" type="text">Recibir</p>
+            </div>
+        </div>
+
+        <div id="cambiar" class="content">
+            
+        </div>
+
+        <div id="intercambio" class="content">
+            <div class="tabscv">
+                <div class="tabcv actived" id="tab-comprar">Comprar</div>
+                <div class="tabcv" id="tab-vender">Vender</div>
+            </div>
+
+            <div id="comprar-container">
+                <div class="ordenes-container" id="ordenes-container"></div>
+                <div class="paginacion" id="paginacion">
+                    <button class="pagination_button" onclick="cambiarPagina(-1)">Anterior</button>
+                    <span id="pagina-actual">1</span>
+                    <button class="pagination_button" onclick="cambiarPagina(1)">Siguiente</button>
+                </div>
+
+            </div>
+            <form id="vender-container">
+                <h2 id="h3cv">Crear nueva publicación de venta</h2>
+
+                <div class="form-section">
+                    <div id="form-vender">
+                        <input type="number" step="0.00000001" name="cantidad_venta" placeholder="Cantidad a vender (USDT)" required>
+                        <input type="number" step="0.01" name="precio_venta_bob" placeholder="Precio por unidad (BOB)" required>
+                        <input type="number" step="0.01" name="minimo_compra" placeholder="Mínimo de compra (BOB)" required>
+                        <textarea id="reglas_vendedor" name="reglas_vendedor" placeholder="Reglas del vendedor (opcional)"></textarea>
+                    </div>
+
+                    <div id="contenedor-imagen">
+                        <span>Subir QR</span>
+                        <img id="preview" alt="Previsualización QR">
+                        <input type="file" id="imagen_qr" accept="image/*">
+                    </div>
+                </div>
+                <button type="submit" form="form-vender" class="submit-button">Publicar venta</button>
+            </form>
+        </div>  
+            
+
+        <div id="earn" class="content">
+        
+        </div>
+
+        <div id="actividad" class="content">
+            
+        </div>
+
+        <div id="tutoriales" class="content">
+            
+        </div>
+    
+    </div>
+    <script>    
+        const EYE_OPEN_ICON_URL = "{{ url_for('static', filename='images/icon/eye.png') }}";
+        const EYE_CLOSED_ICON_URL = "{{ url_for('static', filename='images/icon/eye-off.png') }}";
+    </script>
+    <script src="{{ url_for('static', filename='js/dash.js') }}"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+            <div class="main_balance">
+                <h3 id="text_balance">Balance total:</h3>
+                <img id="infotext" src="{{ url_for('static', filename='images/icon/info2.png') }}" alt="Img language" class="btn-info2" title="Información sobre el balance con la suma total de los saldos del usuario en todas las criptomonedas.">
+                <img id="usaicon" src="{{ url_for('static', filename='images/icon/usa.png') }}" alt="Img language" class="btn-user">
+                <h2 id="balance-simbol">$</h2>
+                <a id="tbalance" class="tbalance" type="text">  {{balance_total}} </a>
+                <button type="button" id="toggle-password"><img id="eye_icon" src="{{ url_for('static', filename='images/icon/eye-off.png') }}" alt="Img bright" class="btn-eye"></button>
+                
+            </div>
+            <div class="main_actions">
+                <div class="action deposit"><img src="{{ url_for('static', filename='images/icon/credit_card_2.png') }}" alt="Img language" class="icons2"></div>
+                <div class="action sent"><img src="{{ url_for('static', filename='images/icon/upload.png') }}" alt="Img language" class="icons2"></div>
+                <div class="action receive"><img src="{{ url_for('static', filename='images/icon/receive_money.png') }}" alt="Img language" class="icons2"></div>       
+                <p id="action_text" class="action_text" type="text">Recargar</p>
+                <p id="action_text" class="action_text" type="text">Enviar</p>
+                <p id="action_text" class="action_text" type="text">Recibir</p>
+            </div>
